@@ -13,10 +13,10 @@ android {
   }
   signingConfigs {
         release {
-            storeFile file(keystoreProperties["RELEASE_STORE_FILE"]) 
-            storePassword System.getenv("RELEASE_STORE_PASSWORD")
-            keyAlias System.getenv("RELEASE_KEY_ALIAS")
-            keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+            storeFile file(System.getenv("/root/devops/bug/BugfenderSDK-android-sample/secure/bugfinder-key.keystore")) 
+            storePassword System.getenv("jenkins")
+            keyAlias System.getenv("bugfinder-key-alias")
+            keyPassword System.getenv("jenkins")
         }
   }
   buildTypes {
