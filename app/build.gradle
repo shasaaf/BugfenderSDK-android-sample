@@ -11,6 +11,7 @@ android {
     versionCode 1
     versionName "1.0"
   }
+{% if args.sign -%}
   signingConfigs {
         release {
             storeFile file(System.getenv("/root/devops/bug/BugfenderSDK-android-sample/secure/bugfinder-key.keystore")) 
@@ -19,10 +20,13 @@ android {
             keyPassword System.getenv("jenkins")
         }
   }
+{%- endif %}
   buildTypes {
     release {
       minifyEnabled true
+{% if args.sign -%}
       signingConfig signingConfigs.release
+      {%- endif %}
     }
   }
 }
