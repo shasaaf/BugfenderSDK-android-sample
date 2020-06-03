@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-
+// Load keystore
+def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
   compileSdkVersion 27
   buildToolsVersion '27.0.3'
@@ -11,22 +14,22 @@ android {
     versionCode 1
     versionName "1.0"
   }
-{% if args.sign -%}
+
   signingConfigs {
         release {
-            storeFile file(System.getenv("/root/devops/bug/BugfenderSDK-android-sample/secure/bugfinder-key.keystore")) 
-            storePassword System.getenv("jenkins")
-            keyAlias System.getenv("bugfinder-key-alias")
-            keyPassword System.getenv("jenkins")
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
         }
   }
-{%- endif %}
+
   buildTypes {
     release {
       minifyEnabled true
-{% if args.sign -%}
+
       signingConfig signingConfigs.release
-      {%- endif %}
+
     }
   }
 }
