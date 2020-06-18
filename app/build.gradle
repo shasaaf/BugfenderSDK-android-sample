@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.quittle.setup-android-sdk'
 // Load keystore
 def keystorePropertiesFile = rootProject.file("keystore.properties");
 def keystoreProperties = new Properties()
@@ -32,10 +33,18 @@ android {
 
     }
   }
+  
 }
 
-dependencies {
-  implementation 'com.android.support:appcompat-v7:27.1.1'
-  implementation 'com.bugfender.sdk:android:3.+'
-  implementation 'com.quittle:setup-android-sdk:1.5.0'
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+ dependencies {
+   implementation 'com.android.support:appcompat-v7:27.1.1'
+   implementation 'com.bugfender.sdk:android:3.+'
+   implementation 'com.quittle:setup-android-sdk:1.5.0'
+ }
 }
